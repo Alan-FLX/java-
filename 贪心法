@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class GreedySelect {
+	//数组排序
+	public static void sort(int n,int[] begin, int[] end) {
+		for(int i = 0; i < n - 1; i++) {
+			for(int j = 0; j < n - 1 - i; j++) {
+			int temp,temp1;
+			if(end[j] > end[j + 1]) {
+				temp = begin[j];
+				temp1 = end[j];
+				begin[j] = begin[j + 1];
+				end[j] = end[j + 1];
+				begin[j + 1] = temp;
+				end[j + 1] = temp1;
+			}
+		}
+		}
+	}
+	
+	public static void greedyselect(int n,int[] begin,int[] end,boolean[] a) {
+		a[0] = true;
+		int j = 0;
+		for(int i = 1; i < n; i++) {
+			if(begin[i] >= end[j]) {
+				a[i] = true;
+				j = i;
+			}
+		}
+		for(int i = 0; i < n; i++) {
+			if(a[i]) {
+				System.out.println("("+begin[i] + ","+end[i]+")");
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		//获取输入
+		Scanner scan = new Scanner(System.in);
+		int n = scan.nextInt();//活动个数
+		int[] begin = new int[n];
+		int[] end = new int[n];
+		boolean[] a = new boolean[n];
+		for(int i = 0; i < n; i++) {
+			begin[i] = scan.nextInt();
+			end[i] = scan.nextInt();
+		}
+		sort(n, begin, end);
+		greedyselect(n, begin, end, a);
+	}
+}
